@@ -25,7 +25,7 @@ class FileManagerView(object):
             label.config(bg='white', fg='black')
             label.config(font=labelFont, height=3, width=20)
             label.pack(expand=tkinter.YES, fill=tkinter.BOTH)
-            """
+        """
         self.scrollbar = tkinter.Scrollbar(self.screen)
         self.scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
         self.listbox = tkinter.Listbox(self.screen, selectmode=tkinter.MULTIPLE)
@@ -36,8 +36,18 @@ class FileManagerView(object):
         
         # The selection is one off with Button-1; gotta use ListboxSelect
         self.listbox.bind("<Double-1>", self.onDoubleClick)
+        """
+        self.scrollbar2 = tkinter.Scrollbar(self.screen)
+        self.scrollbar2.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+        self.listbox2 = tkinter.Listbox(self.screen, selectmode=tkinter.MULTIPLE)
+        self.listbox2.pack(side="top", fill="both", expand=True)
         
+        self.scrollbar2.config(command=self.listbox.yview)
+        self.listbox2.config(yscrollcommand=self.scrollbar.set)
         
+        # The selection is one off with Button-1; gotta use ListboxSelect
+        self.listbox2.bind("<Double-1>", self.onDoubleClick)
+        """
         # Quit functionality
         quitButton = tkinter.Button(text='Quit', command=quit)
         quitButton.config(width=20, height=3, bg='#ff0000', relief=tkinter.SUNKEN, bd=5)
@@ -70,8 +80,6 @@ class FileManagerView(object):
         for x in selection:
             value = widget.get(x)
             print "Value is", value
-
-
 
 if __name__ == '__main__':
     fileManager = FileManagerView()
