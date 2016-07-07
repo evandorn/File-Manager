@@ -36,36 +36,31 @@ class FileManagerView(object):
         
         # The selection is one off with Button-1; gotta use ListboxSelect
         self.listbox.bind("<Double-1>", self.onDoubleClick)
-        """
-        self.scrollbar2 = tkinter.Scrollbar(self.screen)
-        self.scrollbar2.pack(side=tkinter.RIGHT, fill=tkinter.Y)
-        self.listbox2 = tkinter.Listbox(self.screen, selectmode=tkinter.MULTIPLE)
-        self.listbox2.pack(side="top", fill="both", expand=True)
-        
-        self.scrollbar2.config(command=self.listbox.yview)
-        self.listbox2.config(yscrollcommand=self.scrollbar.set)
-        
-        # The selection is one off with Button-1; gotta use ListboxSelect
-        self.listbox2.bind("<Double-1>", self.onDoubleClick)
-        """
-        # Quit functionality
+
+        # Quit Button
         quitButton = tkinter.Button(text='Quit', command=quit)
-        quitButton.config(width=20, height=3, bg='#ff0000', relief=tkinter.SUNKEN, bd=5)
+        quitButton.config(width=10, height=3, bd=5)
         quitButton.pack(side=tkinter.LEFT, padx=5, pady=5)
         
+        # Search Button
         searchButton = tkinter.Button(text='Search')
-        searchButton.config(width=20, height=3, bg='#ff0000', relief=tkinter.SUNKEN, bd=5)
+        searchButton.config(width=10, height=3, bd=5)
         searchButton.pack(side=tkinter.LEFT, padx=5, pady=5)
-        """
-            MyButton1 = tkinter.Button(text="BUTTON1", width=10)
-            MyButton1.grid(side=tkinter.BOTTOM, row=0, column=1)
-            
-            MyButton2 = tkinter.Button(text="BUTTON2", width=10)
-            MyButton2.grid(side=tkinter.BOTTOM, row=0, column=2)
-            
-            MyButton3 = tkinter.Button(text="BUTTON3", width=10)
-            MyButton3.grid(side=tkinter.BOTTOM, row=0, column=3)
-        """
+        
+        # Clear Button
+        clearButton = tkinter.Button(text='Clear Results')
+        clearButton.config(width=10, height=3, bd=5)
+        clearButton.pack(side=tkinter.LEFT, padx=5, pady=5)
+
+        # View Trash Button
+        viewTrashButton = tkinter.Button(text='View Trash')
+        viewTrashButton.config(width=10, height=3, bd=5)
+        viewTrashButton.pack(side=tkinter.RIGHT, padx=10, pady=5)
+        
+        # Move to Trash Button
+        trashButton = tkinter.Button(text='Move To Trash')
+        trashButton.config(width=10, height=3, bd=5)
+        trashButton.pack(side=tkinter.RIGHT, padx=10, pady=5)
         
         self.screen.mainloop()
     
