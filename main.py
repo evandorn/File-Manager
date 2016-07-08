@@ -1,6 +1,9 @@
-import sys, os
+#!/usr/bin/python
+
+import sys
+import Tkinter as tk
+import src.FileViewController
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-    print "usage:", sys.argv[0], "<dir>"
-    sys.exit()
+    app = src.FileViewController.FileViewController()
+    # tk.mainloop()

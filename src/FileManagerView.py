@@ -21,8 +21,6 @@ class FileManagerView(object):
         self.screen.geometry(GEOMETRY)
         self.screen.title(TITLE)
         self.screen.bind('<Escape>', (lambda event: self.quit()))
-
-        # self.makeMenu()
         
         self.scrollbar = tkinter.Scrollbar(self.screen)
         self.scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
@@ -70,7 +68,6 @@ class FileManagerView(object):
         self.newWindow = tkinter.Toplevel(self.screen)
         self.trashView = TrashView(self.newWindow)
 
-
     # TODO - Move To Trash
     def moveToTrash(self):
         print("Move to trash - not yet implemented")
@@ -88,10 +85,31 @@ class TrashView:
         self.screen = screen
         self.frame = tkinter.Frame(self.screen)
         self.screen.title("Trash")
-        self.quitButton = tkinter.Button(self.frame, text = 'search', width = 25, command = self.search)
-        self.quitButton.pack()
+        self.deleteButton = tkinter.Button(self.frame, text = 'delete', width = 25, command = self.deleteFile)
+        self.deleteButton.pack()
+        self.restoreButton = tkinter.Button(self.frame, text = 'restore', width = 25, command = self.restoreFile)
+        self.restoreButton.pack()
+
+        # Trash view listbox
+        self.scrollbar = tkinter.Scrollbar(self.screen)
+        self.scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
+        self.listbox = tkinter.Listbox(self.screen, selectmode=tkinter.MULTIPLE)
+        self.listbox.pack(side="top", fill="both", expand=True)
+        
+        self.scrollbar.config(command=self.listbox.yview)
+        self.listbox.config(yscrollcommand=self.scrollbar.set)
+
         self.frame.pack()
-    def search(self):
+
+    # TODO - Restore file
+    def restoreFile(self):
+        print("Restore File - Not yet implemented")
+    
+    # TODO - Delete file
+    def deleteFile(self):
+        print("Delete File = Not yet implemented")
+    
+    def closeWindow(self):
         self.screen.destroy()
 
 if __name__ == '__main__':
