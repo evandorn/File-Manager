@@ -6,7 +6,13 @@
 """
 
 import sys, os
-import string
+import FileManagerModel
+import FileManagerView
 
 class FileManagerController(object):
+    def __init__(self):
+        self.model = FileManagerModel.FileManagerModel()
+        self.view  = FileManagerView.FileManagerView()
 
+if __name__ == "__main__":
+    controller = FileManagerController()

@@ -13,6 +13,9 @@ import tkMessageBox
 
 TITLE = "File Manager"
 GEOMETRY = '864x620+200+250'
+
+GEOMETRY2 = '640x480+400+400'
+
 class FileManagerView(object):
     def __init__(self, screen):
         # self.screen = tkinter.Tk()
@@ -85,16 +88,21 @@ class TrashView:
         self.screen = screen
         self.frame = tkinter.Frame(self.screen)
         self.screen.title("Trash")
+        self.screen.geometry(GEOMETRY2)
         self.deleteButton = tkinter.Button(self.frame, text = 'delete', width = 25, command = self.deleteFile)
-        self.deleteButton.pack()
+        self.deleteButton.pack(side=tkinter.LEFT, padx=5, pady=5)
         self.restoreButton = tkinter.Button(self.frame, text = 'restore', width = 25, command = self.restoreFile)
-        self.restoreButton.pack()
+        self.restoreButton.pack(side=tkinter.LEFT, padx=5, pady=5)
+        self.closeButton = tkinter.Button(self.frame, text = 'close', width = 25, command = self.closeWindow)
+        self.closeButton.pack(side=tkinter.LEFT, padx=5, pady=5)
+        
 
         # Trash view listbox
         self.scrollbar = tkinter.Scrollbar(self.screen)
         self.scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
         self.listbox = tkinter.Listbox(self.screen, selectmode=tkinter.MULTIPLE)
         self.listbox.pack(side="top", fill="both", expand=True)
+    
         
         self.scrollbar.config(command=self.listbox.yview)
         self.listbox.config(yscrollcommand=self.scrollbar.set)
