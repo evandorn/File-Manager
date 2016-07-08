@@ -14,7 +14,7 @@ import tkMessageBox
 TITLE = "File Manager"
 GEOMETRY = '962x409+200+250'
 
-GEOMETRY2 = '840x620+400+400'
+TASHVIEW_GEOMETRY = '783x465+400+400'
 
 class FileManagerView(tkinter.Toplevel):
     def __init__(self, screen):
@@ -29,7 +29,7 @@ class FileManagerView(tkinter.Toplevel):
     
         self.screen.bind('<Escape>', (lambda event: self.quit()))
         
-        self.fileList = tkinter.Listbox(topFrame, width = 100, height = 20)
+        self.fileList = tkinter.Listbox(topFrame, width = 105, height = 20)
         self.fileList.pack()
         bottomFrame = tkinter.Frame(self, height = 8)
         bottomFrame.pack(side = tkinter.BOTTOM)
@@ -77,7 +77,7 @@ class FileManagerView(tkinter.Toplevel):
         # Move to Trash Button
         trashButton = tkinter.Button(bottomFrame, text='Move To Trash', command=self.moveToTrash)
         trashButton.config(width=10, height=3, bd=5)
-        trashButton.pack(side=tkinter.RIGHT, padx=10, pady=5)
+        trashButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
         
     def quitDialog(self):
         if tkMessageBox.askyesno('Verify', 'Do you really want to quit?'):
@@ -128,7 +128,7 @@ class TrashView:
         self.screen = screen
         self.frame = tkinter.Frame(self.screen)
         self.screen.title("Trash")
-        self.screen.geometry(GEOMETRY2)
+        self.screen.geometry(TASHVIEW_GEOMETRY)
         self.deleteButton = tkinter.Button(self.frame, text = 'delete', width = 25, command = self.deleteFile)
         self.deleteButton.pack(side=tkinter.LEFT, padx=5, pady=5)
         self.restoreButton = tkinter.Button(self.frame, text = 'restore', width = 25, command = self.restoreFile)
