@@ -6,51 +6,52 @@
 """
 
 import sys, os
+import Tkinter as tk
+import tkMessageBox
+
 import FileManagerModel
-import FileManagerView
+import FileManagerView 
 
-class FileManagerController(object):
-    def __init__(self, screen):
-        self.model = FileManagerModel.FileManagerModel()
-        self.model.hits.addCallback(self.hitsChanged)                   # change these variable names
-        self.view  = FileManagerView.FileManagerView(screen)            # pass the screen to the view
-        # Key bindings
-        self.view.bind("<Escape>", lambda event: root.quit())
-        self.view.setEntry("<Enter search term here>")
-        self.view.bindEntry("<Button-1>", self.view.clearEntry)
-        self.view.bindEntry("<Return>", self.searchModel)
-        # Button bindings
-        self.view.clearButton.config(command = self.clear)
-        self.view.searchButton.config(command = self.searchModel)
-        self.view.quitButton.config(command = root.quit)
+class Controller(object):
+  def __init__(self, screen):
+    self.model = FileManagerModel.FileManagerModel()
+    self.model.results.addCallback(self.resultsChanged)
+    self.view = FileManagerView.FileManagerView(screen)
+    self.view.bind("<Escape>", lambda event: screen.quit())
+    self.view.setEntry("Enter a search query....")
+    self.view.bindEntry("<Button-1>", self.view.clearEntry)
+    self.view.bindEntry("<Return>", self.search)
+    
+    self.view.clearAllButton.config(command = self.clearAll)
+    self.view.searchButton.config(command = self.search)
+    self.view.quitButton.config(command = self.quitDialog)
+  
+  def resultsChanged(self, results):
+    self.view.updateResults(results)
 
-    def hitsChanged(self, hits):
-        self.view.updateHits(hits)
+  def clearAll(self):
+    self.model.clearAllResults()
+  
+  def quitDialog(self):
+    if tkMessageBox.askyesno('Verify', 'Do you really want to quit?'):
+        sys.exit()
+    else:
+        tkMessageBox.showinfo(' ', 'Okay cool. Keep managing your files :)')
 
-    def entryChanged(self,entry):
-        pass
-            
-    def clear(self):
-        self.model.clear()
+  def search(self, event = None):
+    self.model.clearAllResults()                            # Must clear old results to make room for new searches
+    entry = self.view.getEntry()
+    subDirectories = [self.model.getDirectory()]
+    temp = []
+    while subDirectories:
+      searchDirectory = subDirectories.pop()
+      currentDirectory = os.listdir(searchDirectory)
+      for i in currentDirectory:
+        result = os.path.join(searchDirectory, i)
 
-    def searchModel(self, event = None):
-        self.model.clear()
-        part = self.view.getEntry()
-        subdirs = [self.model.getDir()]
-        tempHits = []
-        while subdirs:
-            dirToSearch = subdirs.pop()
-            thisDirectory = os.listdir(dirToSearch)
-            for i in thisDirectory:
-                toPush = os.path.join(dirToSearch, i)
-
-            if os.path.isdir(toPush):
-                subdirs.append(toPush)
+        if os.path.isdir(result):
+          subDirectories.append(result)
           
-            if part in i:
-                tempHits.append(toPush)     # I think this spacing is correct
-      
-            self.view.updateHits(tempHits)
-
-if __name__ == "__main__":
-    controller = FileManagerController()
+        if entry in i:
+	  temp.append(result)
+      self.view.updateResults(temp)

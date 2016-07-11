@@ -5,47 +5,44 @@
     Created on: 7/5/16
 """
 
-import sys
+import sys, os
+import Tkinter as tkinter
 
-class FileManagerModel(object):
-class FileManagerModel(object):
-  def __init__(self):
-    self.hits = Observable([])
-    self.directory = Observable(os.getcwd())
-
-  def clear(self):
-    self.setHits([])
-# UNUSED AS OF YET, WILL BE MADE FUNCTIONAL LATER
-  def newDir(self, newDirectory):
-    self.directory = newDirectory
-
-  def setHits(self, newHits):
-    self.hits.set(newHits)
-
-  def getDir(self):
-    return self.directory.get()
-
-class Observable:
-  def __init__(self, initValue=None):
-    self.data = initValue
+class Helper:
+  def __init__(self, value = None):
+    self.data = value
     self.callbacks = {}
 
   def addCallback(self, func):
     self.callbacks[func] = 1
 
-  def delCallback(self, func):
+  def deleteCallback(self, func):
     del self.callback[func]
 
-  def _docallbacks(self):
+  def getCallbacks(self):
     for func in self.callbacks:
       func(self.data)
 
-  def set(self, data):
+  def setData(self, data):
     self.data = data
-    self._docallbacks()
+    self.getCallbacks()
 
-  def get(self):
+  def getData(self):
     return self.data
 
-  def unset(self):
+  def unsetData(self):
     self.data = None
+
+class FileManagerModel(object):
+  def __init__(self):
+    self.results = Helper([])
+    self.directory = Helper(os.getcwd())
+
+  def clearAllResults(self):
+    self.setResults([])
+
+  def setResults(self, newResults):
+    self.results.setData(newResults)
+
+  def getDirectory(self):
+    return self.directory.getData()
