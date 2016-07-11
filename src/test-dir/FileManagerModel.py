@@ -1,6 +1,5 @@
-import os
-import sys
-import Tkinter as tk
+import sys, os
+import Tkinter as tkinter
 
 class Observable:
   def __init__(self, initValue = None):
@@ -28,20 +27,18 @@ class Observable:
     self.data = None
 
 class Model(object):
-
   def __init__(self):
-    self.hits = Observable([])
+    self.results = Observable([])
     self.directory = Observable(os.getcwd())
 
   def clear(self):
-    self.setHits([])
+    self.setResults([])
   
-# UNUSED AS OF YET, WILL BE MADE FUNCTIONAL LATER
   def newDir(self, newDirectory):
     self.directory = newDirectory
 
-  def setHits(self, newHits):
-    self.hits.set(newHits)
+  def setResults(self, newResults):
+    self.results.set(newResults)
 
-  def getDir(self):
+  def getDirectory(self):
     return self.directory.get()

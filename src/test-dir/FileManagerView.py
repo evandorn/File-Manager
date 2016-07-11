@@ -1,5 +1,4 @@
-import os
-import sys
+import sys, os
 import Tkinter as tkinter
 
 GEOMETRY = '962x409+200+250'
@@ -16,7 +15,7 @@ class View(tkinter.Toplevel):
     topFrame.pack()
     
     scrollbar = tkinter.Scrollbar(topFrame, orient = tkinter.VERTICAL)
-    scrollbar.pack(side = tkinter.BOTTOM, fill = tkinter.Y)
+    scrollbar.pack(side = tkinter.RIGHT, fill = tkinter.Y)
     
     self.resultsList.config(xscrollcommand = scrollbar.set)
     scrollbar.config(command = self.resultsList.xview)
@@ -25,11 +24,11 @@ class View(tkinter.Toplevel):
     self.searchBox.pack(side = tkinter.LEFT)
     
     self.searchButton = tkinter.Button(bottomFrame, text = 'Search')
-    self.searchButton.config(width=10, height=3, bd=5)
+    self.searchButton.config(width = 10, height = 2, bd = 3)
     self.searchButton.pack(side=tkinter.LEFT, padx=5, pady=5)
     
-    self.clearFile = tkinter.Button(bottomFrame, text='Clear Result')
-    self.clearFile.config(width=10, height=3, bd=5)
+    self.clearFile = tkinter.Button(bottomFrame, text='Clear')
+    self.clearFile.config(width = 10, height = 2, bd = 3)
     self.clearFile.pack(side=tkinter.LEFT, padx=5, pady=5)
 
     self.clearAllButton = tkinter.Button(bottomFrame, text = 'Clear All')
@@ -37,10 +36,10 @@ class View(tkinter.Toplevel):
     self.clearAllButton.pack(side=tkinter.LEFT, padx=5, pady=5)
     
     self.quitButton = tkinter.Button(bottomFrame, text = 'Quit')
-    self.quitButton.config(width = 10, height = 3, bd = 5)
+    self.quitButton.config(width = 10, height = 2, bd = 3)
     self.quitButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
   
-  def updateHits(self, newHits):
+  def updateResults(self, newHits):
     self.resultsList.delete(0,tkinter.END)
     for h in newHits:
       self.resultsList.insert(tkinter.END, h)

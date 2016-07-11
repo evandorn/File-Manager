@@ -1,5 +1,4 @@
-import os
-import sys
+import sys, os
 import Tkinter as tk
 import tkMessageBox
 
@@ -9,7 +8,7 @@ import FileManagerView
 class Controller(object):
   def __init__(self, root):
     self.model = FileManagerModel.Model()
-    self.model.hits.addCallback(self.hitsChanged)
+    self.model.results.addCallback(self.resultsChanged)
     self.view = FileManagerView.View(root)
     self.view.bind("<Escape>", lambda event: root.quit())
     self.view.setEntry("Enter a search query....")
@@ -19,8 +18,8 @@ class Controller(object):
     self.view.searchButton.config(command = self.searchModel)
     self.view.quitButton.config(command = self.quitDialog)
   
-  def hitsChanged(self, hits):
-    self.view.updateHits(hits)
+  def resultsChanged(self, hits):
+    self.view.updateResults(hits)
 
   def entryChanged(self,entry):
     pass
@@ -37,8 +36,8 @@ class Controller(object):
   def searchModel(self, event = None):
     self.model.clear()
     part = self.view.getEntry()
-    subdirs = [self.model.getDir()]
-    tempHits = []
+    subdirs = [self.model.getDirectory()]
+    temp = []
     while subdirs:
       dirToSearch = subdirs.pop()
       thisDirectory = os.listdir(dirToSearch)
@@ -49,6 +48,6 @@ class Controller(object):
           subdirs.append(toPush)
           
         if part in i:
-	  tempHits.append(toPush)
+	  temp.append(toPush)
       
-      self.view.updateHits(tempHits)
+      self.view.updateResults(temp)
