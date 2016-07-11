@@ -39,7 +39,7 @@ class FileManagerView(tkinter.Toplevel):
     self.searchButton.pack(side=tkinter.LEFT, padx=5, pady=5)
     
     self.clearFile = tkinter.Button(bottomFrame, text='Clear')
-    self.clearFile.config(width = 10, height = 2, bd = 3)
+    self.clearFile.config(width = 10, height = 2, bd = 3, command = self.DeleteSelection)
     self.clearFile.pack(side=tkinter.LEFT, padx=5, pady=5)
 
     self.clearAllButton = tkinter.Button(bottomFrame, text = 'Clear All')
@@ -50,6 +50,14 @@ class FileManagerView(tkinter.Toplevel):
     self.quitButton.config(width = 10, height = 2, bd = 3)
     self.quitButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
   
+  def DeleteSelection(self) :
+    items = self.resultsList.curselection()
+    pos = 0
+    for i in items:
+        idx = int(i) - pos
+        self.resultsList.delete(idx, idx)
+        pos = pos + 1
+
   def updateResults(self, newResults):
     self.resultsList.delete(0,tkinter.END)
     for result in newResults:

@@ -39,7 +39,7 @@ class Controller(object):
         tkMessageBox.showinfo(' ', 'Okay cool. Keep managing your files :)')
 
   def search(self, event = None):
-    self.model.clearAllResults()                            # Must clear old results to make room for new searches
+    self.model.clearAllResults()         # Must clear old results to make room for new searches
     entry = self.view.getEntry()
     subDirectories = [self.model.getDirectory()]
     temp = []
