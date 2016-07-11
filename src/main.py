@@ -8,5 +8,5 @@ if __name__ == '__main__':
   screen = tkinter.Tk()
   screen.withdraw()
   screen.title("File Manager")
-  app = FileManagerController.Controller(screen)
+  app = FileManagerController.FileManagerController(screen)
   screen.mainloop()

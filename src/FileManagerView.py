@@ -50,6 +50,17 @@ class FileManagerView(tkinter.Toplevel):
     self.quitButton.config(width = 10, height = 2, bd = 3)
     self.quitButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
   
+    self.menubar = tkinter.Menu(self.master) #Needs something relevant to root
+    self.menubar.config(bg='#00ff00')
+    
+    self.filemenu = tkinter.Menu(self.menubar, tearoff=1)
+    self.menubar.add_cascade(menu=self.filemenu, label='File')
+    
+    self.helpmenu = tkinter.Menu(self.menubar)
+    self.menubar.add_cascade(menu=self.helpmenu, label='Help')
+    
+    self.master.config(menu=self.menubar) #same
+  
   def DeleteSelection(self) :
     items = self.resultsList.curselection()
     pos = 0
