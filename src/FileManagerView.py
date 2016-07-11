@@ -13,7 +13,6 @@ import tkMessageBox
 
 TITLE = "File Manager"
 GEOMETRY = '962x409+200+250'
-
 TASHVIEW_GEOMETRY = '783x465+400+400'
 
 class FileManagerView(tkinter.Toplevel):
@@ -26,14 +25,13 @@ class FileManagerView(tkinter.Toplevel):
         bottomFrame = tkinter.Frame(self)
         bottomFrame.pack(side = tkinter.BOTTOM)
         topFrame.pack()
-    
-        self.screen.bind('<Escape>', (lambda event: self.quit()))
         
         self.fileList = tkinter.Listbox(topFrame, width = 105, height = 20)
         self.fileList.pack()
         bottomFrame = tkinter.Frame(self, height = 8)
         bottomFrame.pack(side = tkinter.BOTTOM)
         topFrame.pack()
+        
         """
         scrollbar = tkinter.Scrollbar(topFrame, orient = tkinter.VERTICAL)
         scrollbar.pack(side = tkinter.BOTTOM, fill = tkinter.y)
@@ -55,18 +53,18 @@ class FileManagerView(tkinter.Toplevel):
         self.entryBox.pack(side = tkinter.LEFT)
        
         # Search Button
-        searchButton = tkinter.Button(bottomFrame, text='Search', command=self.executeSearch)
-        searchButton.config(width=10, height=3, bd=5)
+        searchButton = tkinter.Button(bottomFrame, text='Search') #, command=self.executeSearch)
+        # searchButton.config(width=10, height=3, bd=5)
         searchButton.pack(side=tkinter.LEFT, padx=5, pady=5)
            
         # Clear Button
-        clearButton = tkinter.Button(bottomFrame, text='Clear Results', command=self.clearListView)
-        clearButton.config(width=10, height=3, bd=5)
+        clearButton = tkinter.Button(bottomFrame, text='Clear Results') #, command=self.clearListView)
+        # clearButton.config(width=10, height=3, bd=5)
         clearButton.pack(side=tkinter.LEFT, padx=5, pady=5)
         
         # Quit Button
-        quitButton = tkinter.Button(bottomFrame, text='Quit', command=self.quitDialog)
-        quitButton.config(width=10, height=3, bd=5)
+        quitButton = tkinter.Button(bottomFrame, text='Quit') #, command=self.quitDialog)
+        # quitButton.config(width=10, height=3, bd=5)
         quitButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
 
         # View Trash Button
@@ -101,7 +99,22 @@ class FileManagerView(tkinter.Toplevel):
     def clearListView(self):
         print("Clear - Not yet implemented")
 
+    def updateHits(self, newHits):
+        self.fileList.delete(0, tkinter.END)
+        for h in newHits:
+            self.fileList.insert(tkinter.END, h)
+    
+    def clearEntry(self, event):
+        self.entryBox.delete(0, tkinter.END)
 
+    def setEntry(self, text):
+        self.entryBox.insert(0, text)
+
+    def bindEntry(self, cmd, handler):
+        self.entryBox.bind(cmd, handler)
+
+    def getEntry(self):
+        return self.entryBox.get()
 
         """
         # self.screen = tkinter.Tk()
@@ -122,7 +135,7 @@ class FileManagerView(tkinter.Toplevel):
         # The selection is one off with Button-1; gotta use ListboxSelect
         #self.listbox.bind("<Double-1>", self.onDoubleClick)
         
-"""
+        """
 class TrashView:
     def __init__(self, screen):
         self.screen = screen
