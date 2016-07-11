@@ -12,22 +12,36 @@ GEOMETRY = '962x409+200+250'
 
 class FileManagerView(tkinter.Toplevel):
   def __init__(self, master):
+      
     tkinter.Toplevel.__init__(self, master)
+    
+    # Menu bar
+    self.menubar = tkinter.Menu(self.master) #Needs something relevant to root
+    self.menubar.config(bg='#00ff00')
+    
+    self.filemenu = tkinter.Menu(self.menubar, tearoff=1)
+    self.menubar.add_cascade(menu=self.filemenu, label='File')
+    
+    self.helpmenu = tkinter.Menu(self.menubar)
+    self.menubar.add_cascade(menu=self.helpmenu, label='Help')
+    
+    self.master.config(menu=self.menubar) #same
+
     self.geometry(GEOMETRY)
     topFrame = tkinter.Frame(self)
     
     # Results list and scrollbar
+    scrollbar = tkinter.Scrollbar(topFrame, orient = tkinter.VERTICAL)
+    # scrollbar.pack(side = tkinter.RIGHT, fill = tkinter.Y)
+    
     self.resultsList = tkinter.Listbox(topFrame, width = 105, height = 20)
     self.resultsList.pack()
     bottomFrame = tkinter.Frame(self, height = 8)
     bottomFrame.pack(side = tkinter.BOTTOM)
     topFrame.pack()
     
-    scrollbar = tkinter.Scrollbar(topFrame, orient = tkinter.VERTICAL)
-    scrollbar.pack(side = tkinter.RIGHT, fill = tkinter.Y)
-    
     self.resultsList.config(xscrollcommand = scrollbar.set)
-    scrollbar.config(command = self.resultsList.xview)
+    # scrollbar.config(command = self.resultsList.xview)
     
     # Search Box
     self.searchBox = tkinter.Entry(bottomFrame, width = 32)
@@ -49,17 +63,6 @@ class FileManagerView(tkinter.Toplevel):
     self.quitButton = tkinter.Button(bottomFrame, text = 'Quit')
     self.quitButton.config(width = 10, height = 2, bd = 3)
     self.quitButton.pack(side=tkinter.RIGHT, padx=5, pady=5)
-  
-    self.menubar = tkinter.Menu(self.master) #Needs something relevant to root
-    self.menubar.config(bg='#00ff00')
-    
-    self.filemenu = tkinter.Menu(self.menubar, tearoff=1)
-    self.menubar.add_cascade(menu=self.filemenu, label='File')
-    
-    self.helpmenu = tkinter.Menu(self.menubar)
-    self.menubar.add_cascade(menu=self.helpmenu, label='Help')
-    
-    self.master.config(menu=self.menubar) #same
   
   def DeleteSelection(self) :
     items = self.resultsList.curselection()

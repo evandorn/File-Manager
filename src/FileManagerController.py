@@ -25,7 +25,6 @@ class FileManagerController(object):
     self.view.clearAllButton.config(command = self.clearAll)
     self.view.searchButton.config(command = self.search)
     self.view.quitButton.config(command = self.quitDialog)
-  
     
     self.view.filemenu.add_command(label='Search', command=self.search)
     self.view.filemenu.add_command(label='Clear All', command=self.clearAll)
@@ -45,8 +44,7 @@ class FileManagerController(object):
 
   def clearAll(self):
     self.model.clearAllResults()
-  
-  
+    
   def quit(self):
       sys.exit()
 
